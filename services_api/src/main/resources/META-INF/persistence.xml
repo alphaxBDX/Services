@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
-    <persistence-unit name="myPersistenceUnit">
+    <persistence-unit name="PersistenceM2Chausson">
         <class>entity.Client</class>
         <class>entity.Produit</class>
         <properties>

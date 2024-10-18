@@ -7,38 +7,36 @@ import java.util.List;
 
 public class ProduitDao {
 
-    private static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("myPersistenceUnit");
+    private static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("PersistenceM2Chausson");
 
-    // Suppression du constructeur inutile
     public ProduitDao(EntityManagerFactory entityManagerFactory) {}
 
-    // Récupérer tous les enregistrements de Produit
+    // Récupérer tous les Produits
     public List<Produit> getAllProduits() throws Exception {
         EntityManager entityManager = null;
         try {
-            entityManager = entityManagerFactory.createEntityManager();  // Initialisation
-            // Utilisation d'une query typée pour retourner une liste de Produit
+            entityManager = entityManagerFactory.createEntityManager();
             return entityManager.createQuery("SELECT p FROM Produit p", Produit.class).getResultList();
         } catch (Exception e) {
-            throw new Exception("Error while retrieving all Produits", e);
+            throw new Exception("Erreur lors de la récupérations des produits", e);
         } finally {
             if (entityManager != null) {
-                entityManager.close();  // Toujours fermer l'EntityManager
+                entityManager.close();
             }
         }
     }
 
-    // Récupérer un enregistrement de Produit par ID
+    // Récupérer un produit par ID
     public Produit getProduitById(int id) throws Exception {
         EntityManager entityManager = null;
         try {
-            entityManager = entityManagerFactory.createEntityManager();  // Initialisation
+            entityManager = entityManagerFactory.createEntityManager();
             return entityManager.find(Produit.class, id);
         } catch (Exception e) {
-            throw new Exception("Error while retrieving Produit by ID", e);
+            throw new Exception("Erreur lors de la récupération d'un produit par ID", e);
         } finally {
             if (entityManager != null) {
-                entityManager.close();  // Toujours fermer l'EntityManager
+                entityManager.close();
             }
         }
     }
@@ -47,18 +45,18 @@ public class ProduitDao {
     public void createProduit(Produit produit) throws Exception {
         EntityManager entityManager = null;
         try {
-            entityManager = entityManagerFactory.createEntityManager();  // Initialisation
-            entityManager.getTransaction().begin();  // Démarrer la transaction
-            entityManager.persist(produit);  // Ajouter le produit
-            entityManager.getTransaction().commit();  // Valider la transaction
+            entityManager = entityManagerFactory.createEntityManager();
+            entityManager.getTransaction().begin();
+            entityManager.persist(produit);
+            entityManager.getTransaction().commit();
         } catch (Exception e) {
             if (entityManager != null && entityManager.getTransaction().isActive()) {
-                entityManager.getTransaction().rollback();  // Annuler la transaction si une erreur survient
+                entityManager.getTransaction().rollback();
             }
-            throw new Exception("Error while adding a Produit", e);
+            throw new Exception("Erreur lors de la création d'un produit", e);
         } finally {
             if (entityManager != null) {
-                entityManager.close();  // Toujours fermer l'EntityManager
+                entityManager.close();
             }
         }
     }
@@ -67,18 +65,18 @@ public class ProduitDao {
     public void updateProduit(Produit produit) throws Exception {
         EntityManager entityManager = null;
         try {
-            entityManager = entityManagerFactory.createEntityManager();  // Initialisation
-            entityManager.getTransaction().begin();  // Démarrer la transaction
-            entityManager.merge(produit);  // Mettre à jour le produit
-            entityManager.getTransaction().commit();  // Valider la transaction
+            entityManager = entityManagerFactory.createEntityManager();
+            entityManager.getTransaction().begin();
+            entityManager.merge(produit);
+            entityManager.getTransaction().commit();
         } catch (Exception e) {
             if (entityManager != null && entityManager.getTransaction().isActive()) {
-                entityManager.getTransaction().rollback();  // Annuler la transaction en cas d'erreur
+                entityManager.getTransaction().rollback();
             }
             throw new Exception("Error while updating Produit", e);
         } finally {
             if (entityManager != null) {
-                entityManager.close();  // Toujours fermer l'EntityManager
+                entityManager.close();
             }
         }
     }
@@ -87,19 +85,19 @@ public class ProduitDao {
     public void deleteProduit(Produit produit) throws Exception {
         EntityManager entityManager = null;
         try {
-            entityManager = entityManagerFactory.createEntityManager();  // Initialisation
-            entityManager.getTransaction().begin();  // Démarrer la transaction
-            produit = entityManager.merge(produit);  // S'assurer que le produit est dans un état managé
-            entityManager.remove(produit);  // Supprimer le produit
-            entityManager.getTransaction().commit();  // Valider la transaction
+            entityManager = entityManagerFactory.createEntityManager();
+            entityManager.getTransaction().begin();
+            produit = entityManager.merge(produit);
+            entityManager.remove(produit);
+            entityManager.getTransaction().commit();
         } catch (Exception e) {
             if (entityManager != null && entityManager.getTransaction().isActive()) {
-                entityManager.getTransaction().rollback();  // Annuler la transaction en cas d'erreur
+                entityManager.getTransaction().rollback();
             }
             throw new Exception("Error while deleting Produit", e);
         } finally {
             if (entityManager != null) {
-                entityManager.close();  // Toujours fermer l'EntityManager
+                entityManager.close();
             }
         }
     }

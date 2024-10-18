@@ -9,7 +9,7 @@ import javax.persistence.Persistence;
 
 public class ClientDao {
 
-    public static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("myPersistenceUnit");
+    public static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("PersistenceM2Chausson");
 
     public ClientDao(EntityManagerFactory entityManagerFactory) {
     }

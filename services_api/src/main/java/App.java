@@ -9,24 +9,23 @@ import javax.persistence.Persistence;
 public class App {
 
     public static void main(String[] args) {
-        // Création de l'EntityManagerFactory avec l'unité de persistance
+
         EntityManagerFactory entityManagerFactory = null;
         try {
-            entityManagerFactory = Persistence.createEntityManagerFactory("myPersistenceUnit");
+            entityManagerFactory = Persistence.createEntityManagerFactory("PersistenceM2Chausson");
 
-            // Instanciation des DAO avec l'EntityManagerFactory
             ClientDao clientDao = new ClientDao(entityManagerFactory);
             ProduitDao produitDao = new ProduitDao(entityManagerFactory);
 
             // Test des opérations CRUD sur Client
             System.out.println("=== Test Client DAO ===");
 
-            // Création d'un client
+            // Créer client
             Client newClient = new Client("John Doe");
             clientDao.createClient(newClient);
             System.out.println("Client ajouté : " + newClient);
 
-            // Récupération du client par ID
+            // Récupérer client par ID
             Client retrievedClient = clientDao.getClientById(newClient.getId());
             System.out.println("Client récupéré : " + retrievedClient);
 
@@ -35,19 +34,19 @@ public class App {
             clientDao.updateClient(retrievedClient);
             System.out.println("Client mis à jour : " + retrievedClient);
 
-            // Suppression du client
+            // Supprimer client
             clientDao.deleteClient(retrievedClient);
             System.out.println("Client supprimé : " + retrievedClient);
 
             // Test des opérations CRUD sur Produit
             System.out.println("\n=== Test Produit DAO ===");
 
-            // Création d'un produit
+            // Créer produit
             Produit newProduit = new Produit("Produit A", 25.50, "Type 1");
             produitDao.createProduit(newProduit);
             System.out.println("Produit ajouté : " + newProduit);
 
-            // Récupération du produit par ID
+            // Récupérer produit par ID
             Produit retrievedProduit = produitDao.getProduitById(newProduit.getId());
             System.out.println("Produit récupéré : " + retrievedProduit);
 
@@ -56,7 +55,7 @@ public class App {
             produitDao.updateProduit(retrievedProduit);
             System.out.println("Produit mis à jour : " + retrievedProduit);
 
-            // Suppression du produit
+            // Supprimer produit
             produitDao.deleteProduit(retrievedProduit);
             System.out.println("Produit supprimé : " + retrievedProduit);
 
@@ -65,7 +64,7 @@ public class App {
             e.printStackTrace();
         } finally {
             if (entityManagerFactory != null) {
-                entityManagerFactory.close(); // Assurez-vous de fermer l'EntityManagerFactory
+                entityManagerFactory.close();
             }
         }
     }
