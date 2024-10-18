@@ -7,13 +7,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import static dao.ProduitDao.entityManagerFactory;
-
 public class ClientDao {
 
     public static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("myPersistenceUnit");
 
-    public ClientDao() {
+    public ClientDao(EntityManagerFactory entityManagerFactory) {
     }
 
     // Récupérer tous les clients
@@ -32,7 +30,7 @@ public class ClientDao {
     }
 
     // Récupérer un client par ID
-    public Client getClientById(long id) throws Exception {
+    public Client getClientById(int id) throws Exception {
         EntityManager entityManager = null;
         try {
             entityManager = entityManagerFactory.createEntityManager();

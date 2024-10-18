@@ -3,14 +3,22 @@ import dao.ProduitDao;
 import entity.Client;
 import entity.Produit;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 public class App {
 
     public static void main(String[] args) {
-        ProduitDao produitDao = new ProduitDao();
-        ClientDao clientDao = new ClientDao();
-
-        // Test des opérations CRUD sur Client
+        // Création de l'EntityManagerFactory avec l'unité de persistance
+        EntityManagerFactory entityManagerFactory = null;
         try {
+            entityManagerFactory = Persistence.createEntityManagerFactory("myPersistenceUnit");
+
+            // Instanciation des DAO avec l'EntityManagerFactory
+            ClientDao clientDao = new ClientDao(entityManagerFactory);
+            ProduitDao produitDao = new ProduitDao(entityManagerFactory);
+
+            // Test des opérations CRUD sur Client
             System.out.println("=== Test Client DAO ===");
 
             // Création d'un client
@@ -55,6 +63,10 @@ public class App {
         } catch (Exception e) {
             System.err.println("Une erreur s'est produite : " + e.getMessage());
             e.printStackTrace();
+        } finally {
+            if (entityManagerFactory != null) {
+                entityManagerFactory.close(); // Assurez-vous de fermer l'EntityManagerFactory
+            }
         }
     }
 }

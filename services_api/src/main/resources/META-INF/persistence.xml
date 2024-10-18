@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
+    <persistence-unit name="myPersistenceUnit">
+        <class>entity.Client</class>
+        <class>entity.Produit</class>
+        <properties>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://172.17.0.2:5432/chausson"/>
+            <property name="javax.persistence.jdbc.user" value="postgres-isi"/>
+            <property name="javax.persistence.jdbc.password" value="password"/>
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+            <property name="javax.persistence.schema-generation.database.action" value="update"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+        </properties>
+    </persistence-unit>
+</persistence>
