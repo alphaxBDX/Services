@@ -14,9 +14,11 @@ on:
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
+
     steps:
-    - name: Téléchargement des sources
+    - name: Checkout source code
     - uses: actions/checkout@v4
     - name: Set up JDK 17
       uses: actions/setup-java@v4
@@ -25,4 +27,5 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
+      working-directory: Service/service_api
       run: mvn -Dmaven.tests.skip=true -B package --file pom.xml
