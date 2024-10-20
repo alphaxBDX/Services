@@ -1,6 +1,6 @@
-package dao;
+package org.m2chausson.dao;
 
-import entity.Produit;
+import org.m2chausson.entities.Produit;
 
 import javax.persistence.*;
 import java.util.List;

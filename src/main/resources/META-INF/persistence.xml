@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
     <persistence-unit name="PersistenceM2Chausson">
-        <class>entity.Client</class>
-        <class>entity.Produit</class>
+        <class>org.m2chausson.entities.Client</class>
+        <class>org.m2chausson.entities.Produit</class>
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://172.17.0.2:5432/chausson"/>
             <property name="javax.persistence.jdbc.user" value="postgres-isi"/>

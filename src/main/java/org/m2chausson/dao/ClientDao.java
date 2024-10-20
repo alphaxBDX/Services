@@ -1,6 +1,6 @@
-package dao;
+package org.m2chausson.dao;
 
-import entity.Client;
+import org.m2chausson.entities.Client;
 
 import java.util.List;
 import javax.persistence.EntityManager;

@@ -1,7 +1,9 @@
-import dao.ClientDao;
-import dao.ProduitDao;
-import entity.Client;
-import entity.Produit;
+package org.m2chausson;
+
+import org.m2chausson.dao.ClientDao;
+import org.m2chausson.dao.ProduitDao;
+import org.m2chausson.entities.Client;
+import org.m2chausson.entities.Produit;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

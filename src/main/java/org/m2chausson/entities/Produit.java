@@ -1,4 +1,4 @@
-package entity;
+package org.m2chausson.entities;
 
 import javax.persistence.*;
 
