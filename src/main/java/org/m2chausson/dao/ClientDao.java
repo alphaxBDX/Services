@@ -11,9 +11,6 @@ public class ClientDao {
 
     public static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("PersistenceM2Chausson");
 
-    public ClientDao(EntityManagerFactory entityManagerFactory) {
-    }
-
     // Récupérer tous les clients
     public List<Client> getAllClients() throws Exception {
         EntityManager entityManager = null;
