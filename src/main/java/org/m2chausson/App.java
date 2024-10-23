@@ -3,7 +3,7 @@ package org.m2chausson;
 import com.sun.net.httpserver.HttpServer;
 import org.m2chausson.dao.ClientDao;
 import org.m2chausson.dao.ProduitDao;
-import org.m2chausson.webhooks.WebhookHandler;
+import org.m2chausson.webhook.WebhookHandler;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -18,7 +18,7 @@ public class App {
         ProduitDao produitDao = new ProduitDao(entityManagerFactory);
 
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
-        server.createContext("/webhooks", new WebhookHandler(clientDao, produitDao));
+        server.createContext("/webhook", new WebhookHandler(clientDao, produitDao));
         server.setExecutor(null);
         server.start();
     }

@@ -1,4 +1,4 @@
-package org.m2chausson.webhooks;
+package org.m2chausson.webhook;
 
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
@@ -42,11 +42,11 @@ public class WebhookHandler implements HttpHandler {
                     String response = "Produit ajouté avec succès : " + produit.getNom() + "\n";
                     sendResponse(exchange, response);
                 } else {
-                    sendResponse(exchange, "Type de webhook non supporté");
+                    sendResponse(exchange, "Type de webhook non supporté" + "\n");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                sendResponse(exchange, "Erreur dans le traitement du webhook");
+                sendResponse(exchange, "Erreur dans le traitement du webhook" + "\n");
             }
         } else {
             sendResponse(exchange, "Méthode non supportée");
