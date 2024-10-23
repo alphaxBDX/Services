@@ -17,12 +17,9 @@ public class App {
         ClientDao clientDao = new ClientDao();
         ProduitDao produitDao = new ProduitDao(entityManagerFactory);
 
-        // Démarrer le serveur HTTP
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
         server.createContext("/webhooks", new WebhookHandler(clientDao, produitDao));
         server.setExecutor(null);
         server.start();
-
-        System.out.println("Serveur démarré sur le port 8080. Webhook accessible sur /webhook");
     }
 }

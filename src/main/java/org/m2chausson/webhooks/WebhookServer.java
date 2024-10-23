@@ -23,7 +23,5 @@ public class WebhookServer {
         server.createContext("/webhooks", new WebhookHandler(clientDao, produitDao));
         server.setExecutor(null);
         server.start();
-
-        System.out.println("Le serveur Java démarre sur le port 8080");
     }
 }
