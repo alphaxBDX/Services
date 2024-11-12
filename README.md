@@ -21,15 +21,14 @@ This project is a demonstration of a Java application with Maven that implements
 ## STEP 1 : Build the project
 **At the root of the project**
 ```bash
-mvn clean install
+docker compose -f Docker/docker-compose.yml up -d
 ```
 
-## STEP 2 : Run the App.java
-
-![Alt text](./img/run_java_app.png)
-
-**LOGS :**
-![Alt text](./img/logs.png)
+## STEP 2 : Restore all tables from backup.sql
+**Run the command line below
+```bash
+docker exec -i bdd psql -U postgres-isi -d chausson < path/to/backup.sql
+```
 
 ## STEP 3 : Testing the webhook
 **Open a new terminal and execute the command lines below :**

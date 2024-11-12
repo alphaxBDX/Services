@@ -4,7 +4,7 @@
         <class>org.m2chausson.entities.Client</class>
         <class>org.m2chausson.entities.Produit</class>
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/chausson"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://bdd:5432/chausson"/>
             <property name="javax.persistence.jdbc.user" value="postgres-isi"/>
             <property name="javax.persistence.jdbc.password" value="password"/>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
