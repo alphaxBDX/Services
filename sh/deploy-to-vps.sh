@@ -46,8 +46,8 @@ git clone git@github.com:alphaxBDX/Services.git "$REPO_DIR"
 cd "$REPO_DIR"
 
 # Stop the Docker services if they are running
-echo "Stopping Docker services..."
-sudo docker-compose -f Docker/docker-compose.yml down
+#echo "Stopping Docker services..."
+#sudo docker-compose -f Docker/docker-compose.yml down
 
 # Start the services with Docker Compose
 echo "Starting services with Docker Compose..."
