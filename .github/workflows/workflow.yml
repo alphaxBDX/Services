@@ -48,17 +48,19 @@ jobs:
       - name: Make sure the file is executable
         run: chmod +x sh/deploy-to-vps.sh
 
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+      - name: Add VPS to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -p 49955 -H ${{ secrets.VPS_IP }} >> ~/.ssh/known_hosts
+
       - name: Deploy to VPS
         run: |
-          ssh -i ~/.ssh/github-actions-id_rsa -p 49955 ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} 'bash -s' < sh/deploy-to-vps.sh
+          ssh -p 49955 ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} 'bash -s' < sh/deploy-to-vps.sh
 
       - name: Success message
         run: echo "Deployment successful!"
