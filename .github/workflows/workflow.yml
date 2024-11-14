@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Make sure all .sh files are executable
-        run: chmod +x sh/*
+        run: chmod +x sh/publish-docker.sh
 
       - name: Docker Login
         env:
@@ -52,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Make sure all .sh files are executable
-        run: chmod +x sh/*  # This line was missing the `run` key
+        run: chmod +x sh/deploy-to-vps.sh
 
       - name: Checkout code
         uses: actions/checkout@v4
