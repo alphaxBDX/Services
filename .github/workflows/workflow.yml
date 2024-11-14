@@ -56,13 +56,6 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Set up SSH key for GitHub Actions
-        run: |
-          mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/github-actions-id_rsa
-          chmod 600 ~/.ssh/github-actions-id_rsa
-          ssh-keyscan -H ${{ secrets.VPS_IP }} >> ~/.ssh/known_hosts
-
       - name: Deploy to VPS
         run: |
           ssh -i ~/.ssh/github-actions-id_rsa -p 49955 ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} 'bash -s' < sh/deploy-to-vps.sh
