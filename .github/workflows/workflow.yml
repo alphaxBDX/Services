@@ -14,7 +14,7 @@ on:
       - main
 
 jobs:
-  build-app:
+  build-docker-publish-and-deploy-vps:
     runs-on: ubuntu-latest
     steps:
       - name: Téléchargement des sources
@@ -29,12 +29,6 @@ jobs:
 
       - name: Build with Maven
         run: mvn -Dmaven.test.skip=true -B package --file pom.xml
-
-  publish-dockerhub:
-    runs-on: ubuntu-latest
-    steps:
-      - name: List files in the repository
-        run: ls -R
 
       - name: Make sure the file is executable
         run: chmod +x sh/publish-docker.sh
@@ -51,9 +45,6 @@ jobs:
           DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
         run: bash sh/publish-docker.sh
 
-  deploy-vps:
-    runs-on: ubuntu-latest
-    steps:
       - name: Make sure the file is executable
         run: chmod +x sh/deploy-to-vps.sh
 
