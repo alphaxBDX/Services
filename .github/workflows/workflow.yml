@@ -1,0 +1,77 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Java CI with Maven
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-app:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Téléchargement des sources
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build with Maven
+        run: mvn -Dmaven.test.skip=true -B package --file pom.xml
+
+  publish-dockerhub:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Make sure all .sh files are executable
+        run: chmod +x sh/*
+
+      - name: Docker Login
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+        run: echo "$DOCKER_TOKEN" | docker login --username "$DOCKER_USERNAME" --password-stdin
+
+      - name: Build and Push Docker Image
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+        run: bash sh/publish-docker.sh
+
+  deploy-vps:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Make sure all .sh files are executable
+      - run: chmod +x sh/*
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Set up SSH key for GitHub Actions
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/github-actions-id_rsa
+          chmod 600 ~/.ssh/github-actions-id_rsa
+          ssh-keyscan -H ${{ secrets.VPS_IP }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to VPS
+        run: |
+          ssh -i ~/.ssh/github-actions-id_rsa -p 49955 ${{ secrets.VPS_USERNANE }}@${{ secrets.VPS_IP }} 'bash -s' < sh/deploy-to-vps.sh
+
+      - name: Success message
+        run: echo "Deployment successful!"
