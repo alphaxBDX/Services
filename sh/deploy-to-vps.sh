@@ -48,12 +48,12 @@ cd "$REPO_DIR"
 echo "Building the project with Maven..."
 mvn clean install
 
-Stop the Docker services if they are running
+#Stop the Docker services if they are running
 echo "Stopping Docker services..."
-sudo docker-compose -f Docker/docker-compose.yml down
+docker-compose -f Docker/docker-compose.yml down
 
 # Start the services with Docker Compose
 echo "Starting services with Docker Compose..."
-sudo docker-compose -f Docker/docker-compose.yml up -d
+docker-compose -f Docker/docker-compose.yml up -d
 
 echo "Deployment completed successfully in the directory $REPO_DIR!"
