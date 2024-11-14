@@ -52,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Make sure all .sh files are executable
-      - run: chmod +x sh/*
+        run: chmod +x sh/*  # This line was missing the `run` key
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -71,7 +71,7 @@ jobs:
 
       - name: Deploy to VPS
         run: |
-          ssh -i ~/.ssh/github-actions-id_rsa -p 49955 ${{ secrets.VPS_USERNANE }}@${{ secrets.VPS_IP }} 'bash -s' < sh/deploy-to-vps.sh
+          ssh -i ~/.ssh/github-actions-id_rsa -p 49955 ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} 'bash -s' < sh/deploy-to-vps.sh
 
       - name: Success message
         run: echo "Deployment successful!"
