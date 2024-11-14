@@ -3,7 +3,7 @@
 # Update packages and install necessary dependencies
 echo "Updating packages and installing dependencies..."
 sudo apt-get update -y
-sudo apt-get install -y curl git
+sudo apt-get install -y curl git maven
 
 # Check if Docker is installed
 if ! command -v docker &> /dev/null; then
@@ -22,8 +22,7 @@ sudo usermod -aG docker $USER_NAME
 # Check if Docker Compose is installed
 if ! command -v docker-compose &> /dev/null; then
     echo "Docker Compose is not installed. Installing Docker Compose..."
-    # Docker Compose Plugin installation
-    sudo curl -L "https://github.com/docker/compose/releases/download/v2.18.0/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose
+    sudo curl -L "https://github.com/docker/compose/releases/download/v2.18.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose
 else
     echo "Docker Compose is already installed."
@@ -44,6 +43,10 @@ git clone git@github.com:alphaxBDX/Services.git "$REPO_DIR"
 
 # Go to the cloned directory
 cd "$REPO_DIR"
+
+# Build the project with Maven
+echo "Building the project with Maven..."
+mvn clean install
 
 Stop the Docker services if they are running
 echo "Stopping Docker services..."
